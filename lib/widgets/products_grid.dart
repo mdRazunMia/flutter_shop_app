@@ -5,7 +5,6 @@ import '../providers/products.dart';
 import './product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
-
   final bool showFavs;
 
   ProductsGrid(this.showFavs);
@@ -21,10 +20,10 @@ class ProductsGrid extends StatelessWidget {
         // builder: (c) => products[i],
         value: products[i],
         child: ProductItem(
-          /* products[i].id,
+            /* products[i].id,
           products[i].title,
           products[i].imageUrl, */
-        ),
+            ),
         //create: null,
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

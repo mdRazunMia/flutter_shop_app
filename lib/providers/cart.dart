@@ -2,49 +2,62 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-class CartItem{
+class CartItem {
   final String id;
   final String title;
   final int quantity;
   final double price;
 
   CartItem({
-   @required this.id,
-   @required this.title,
-   @required this.quantity,
-   @required this.price,
+    @required this.id,
+    @required this.title,
+    @required this.quantity,
+    @required this.price,
   });
 }
 
-class Cart with ChangeNotifier{
-  Map<String, CartItem> _items;
+class Cart with ChangeNotifier {
+  Map<String, CartItem> _items = {};
 
-  Map<String, CartItem> get items{
+  Map<String, CartItem> get items {
     return {..._items};
   }
 
-  void addItem(String productId, double price, String title){
-    if(_items.containsKey(productId)){
-      _items.update(productId, (existingItem) => 
-        CartItem(
-          id: existingItem.id, 
-          title: existingItem.title, 
+  int get itemCount {
+    return items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, CartItem) {
+      total += CartItem.price * CartItem.quantity;
+    });
+    return total;
+  }
+
+  void addItem(String productId, double price, String title) {
+    if (_items.containsKey(productId)) {
+      _items.update(
+        productId,
+        (existingItem) => CartItem(
+          id: existingItem.id,
+          title: existingItem.title,
           price: existingItem.price,
-          quantity: existingItem.quantity+1,
+          quantity: existingItem.quantity + 1,
         ),
       );
-    }else{
+    } else {
       _items.putIfAbsent(
-        productId, () => CartItem(
-        id: DateTime.now().toString(), 
-        // quantity: 1;
-        title: title,
-        price: price,
-        quantity: 1,
+        productId,
+        () => CartItem(
+          id: DateTime.now().toString(),
+          // quantity: 1;
+          title: title,
+          price: price,
+          quantity: 1,
         ),
       );
     }
+    notifyListeners();
   }
-
 }
