@@ -6,6 +6,8 @@ import '../widgets/cart_item.dart';
 // as ci also be used to differentiate the CartItem class
 // import '../widgets/cart_item.dart' as ci;
 
+import '../providers/orders.dart';
+
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
   @override
@@ -44,7 +46,13 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     textColor: Theme.of(context).primaryColor,
                     child: Text(
                       'ORDER NOW',
@@ -60,6 +68,7 @@ class CartScreen extends StatelessWidget {
               itemCount: cart.items.length,
               itemBuilder: (context, i) => CartItem(
                   cart.items.values.toList()[i].id,
+                  cart.items.keys.toList()[i],
                   cart.items.values.toList()[i].price,
                   cart.items.values.toList()[i].quantity,
                   cart.items.values.toList()[i].title),
