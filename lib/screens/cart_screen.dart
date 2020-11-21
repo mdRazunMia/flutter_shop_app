@@ -46,6 +46,10 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      'ORDER NOW',
+                    ),
                     onPressed: () {
                       Provider.of<Orders>(context, listen: false).addOrder(
                         cart.items.values.toList(),
@@ -53,10 +57,6 @@ class CartScreen extends StatelessWidget {
                       );
                       cart.clear();
                     },
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      'ORDER NOW',
-                    ),
                   ),
                 ],
               ),

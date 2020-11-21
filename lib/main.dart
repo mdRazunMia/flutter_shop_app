@@ -8,7 +8,7 @@ import './providers/products.dart';
 import './providers/cart.dart';
 import './screens/cart_screen.dart';
 import './providers/orders.dart';
-import './screens/order_screen.dart';
+import 'screens/orders_screen.dart';
 
 void main() => runApp(MyApp());
 
