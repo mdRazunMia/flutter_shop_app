@@ -76,6 +76,9 @@ class Products with ChangeNotifier {
       // print(json.decode(
       //     response.body)); // this will return the Products as nested Map
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodValue) => {
             loadedProducts.add(Product(
